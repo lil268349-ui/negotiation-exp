@@ -473,6 +473,11 @@ function showTyping() {
 }
 function hideTyping() { const e = document.getElementById('typing'); if(e) e.remove(); }
 function enableInput(phase) {
+  // 记录卖家收到买家报价的时刻（用于计算报价间隔）
+  if (phase === 1) S.timestamps.r1_inputEnabled = Date.now();
+  else if (phase === 3) S.timestamps.r2_inputEnabled = Date.now();
+  else if (phase === 5) S.timestamps.r3_inputEnabled = Date.now();
+
   const hint = document.getElementById('price-hint');
   setHint(phase);
   hint.style.display = 'block';
@@ -1014,12 +1019,18 @@ function finalize() {
     ? `基础奖励 ¥3 + 绩效奖励 ¥${bonus} = 共 ¥${total}`
     : '基础奖励 ¥3（未成交，无绩效奖励）';
 
+  // 计算每轮卖家报价用时（从看到买家报价到提交自己报价，单位：秒）
+  const rt1 = (S.timestamps.r1 && S.timestamps.r1_inputEnabled) ? Math.round((S.timestamps.r1 - S.timestamps.r1_inputEnabled) / 100) / 10 : null;
+  const rt2 = (S.timestamps.r2 && S.timestamps.r2_inputEnabled) ? Math.round((S.timestamps.r2 - S.timestamps.r2_inputEnabled) / 100) / 10 : null;
+  const rt3 = (S.timestamps.r3 && S.timestamps.r3_inputEnabled) ? Math.round((S.timestamps.r3 - S.timestamps.r3_inputEnabled) / 100) / 10 : null;
+
   const out = {
     participantId: 'P_' + Date.now(),
     condition: S.condition,
     conditionLabel: COND_LABEL[S.condition],
     actualDelayMs: DELAY_MS[S.condition],
     bids: { r1: S.r1, r2: S.r2, r3: S.r3 },
+    bidResponseTimeSec: { r1: rt1, r2: rt2, r3: rt3 },
     finalPrice: dealt ? price : null,
     dealt,
     reward: { base: 3, bonus, total },
