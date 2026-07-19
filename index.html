@@ -210,7 +210,7 @@
         <strong>参与内容</strong><br>您将参与一个约 18–21 分钟的模拟谈判任务，并填写若干问卷题目。<br><br>
         <strong>保密性</strong><br>您的所有回答将严格匿名处理，仅用于学术研究目的。<br><br>
         <strong>自愿性</strong><br>参与本研究完全自愿，您可以在任何时候退出，不会受到任何影响。<br><br>
-        <strong>报酬</strong><br>根据您在谈判任务中的表现，您将获得相应的额外奖励（最高 9 元）。
+        <strong>报酬</strong><br>本实验采用积分制，您在谈判中获得的积分可兑换现金奖励，最高可获得 9 元。
       </div>
       <label class="checkbox-row">
         <input type="checkbox" id="consent-check">
@@ -262,11 +262,12 @@
             底价仅您自己知道。低于 <strong>¥700</strong> 您可以拒绝出售，请尽力争取更高的成交价。
           </p>
           <div style="background:var(--accent-light);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:0.25rem;">
-            <div style="font-size:12px;font-weight:600;color:var(--text-hint);margin-bottom:4px;">奖励规则</div>
+            <div style="font-size:12px;font-weight:600;color:var(--text-hint);margin-bottom:4px;">积分规则</div>
             <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">
-              完成全部流程获得基础奖励 <strong>3 元</strong>。<br>
-              最终成交价每高于 ¥700 五十元，额外获得 <strong>1 元</strong>（上限 6 元）。<br>
-              <span style="color:var(--danger);">若谈判未能达成交易（无论哪方结束），仅获得基础奖励，无绩效奖励。</span>
+              完成全部流程获得 <strong>基础积分</strong>。<br>
+              您的最终成交价即为您的 <strong>绩效积分</strong>（如成交 ¥850 = 850 积分）。<br>
+              积分越高，最终兑换的奖励越多，<strong>最高可获得 9 元</strong>。<br>
+              <span style="color:var(--danger);">若谈判未能达成交易（无论哪方结束），仅获得基础积分。</span>
             </div>
           </div>
         </div>
@@ -326,8 +327,8 @@
       <div style="font-size:40px;margin-bottom:1rem">🎉</div>
       <h2>谈判结束</h2>
       <div class="result-price" id="end-price">¥—</div>
-      <div class="result-sub">最终成交价</div>
-      <div class="reward-badge" id="end-reward">额外奖励：计算中…</div>
+      <div class="result-sub">最终成交积分</div>
+      <div class="reward-badge" id="end-reward">积分计算中…</div>
       <p>感谢您参与本次实验！研究关注谈判过程中的决策行为。您的所有回答严格保密，仅用于学术研究目的。</p>
     </div>
     <div class="card">
@@ -835,7 +836,7 @@ function buildSurvey() {
     q:'您平时在网上购物时是否会主动与卖家议价？', type:'radio', opts:['从不','偶尔','经常','总是'], vals:['never','sometimes','often','always'] });
 
   // ── 漏斗提问 ──
-  qs.push({ id:'fnl1', inst:'最后几个问题，请放心作答，不影响您的奖励。',
+  qs.push({ id:'fnl1', inst:'最后几个问题，请放心作答，不影响您的积分。',
     q:'您认为这个实验主要在研究什么？（请简要描述）', type:'text', rows:3, placeholder:'请用一两句话描述您的想法…' });
   qs.push({ id:'fnl2', inst:'',
     q:'在谈判过程中，您是否注意到了什么特别的地方？', type:'text_optional', rows:3, placeholder:'请描述您注意到的任何事情，若无特别之处可填"无"…' });
@@ -1012,10 +1013,10 @@ function finalize() {
   const dealt = price !== null && price !== undefined;
   const bonus = dealt ? Math.min(Math.floor((price - 700) / 50), 6) : 0;
   const total = 3 + bonus;
-  document.getElementById('end-price').textContent = dealt ? '¥' + price : '未成交';
+  document.getElementById('end-price').textContent = dealt ? price + ' 积分' : '未成交';
   document.getElementById('end-reward').textContent = dealt
-    ? `基础奖励 ¥3 + 绩效奖励 ¥${bonus} = 共 ¥${total}`
-    : '基础奖励 ¥3（未成交，无绩效奖励）';
+    ? `基础奖励 ¥3 + 绩效积分兑换 ¥${bonus}（每超出700分50分兑换1元） = 共 ¥${total}`
+    : '基础奖励 ¥3（未成交，无绩效积分兑换）';
 
   // 计算每轮卖家报价用时（从看到买家报价到提交自己报价，单位：秒）
   const rt1 = (S.timestamps.r1 && S.timestamps.r1_inputEnabled) ? Math.round((S.timestamps.r1 - S.timestamps.r1_inputEnabled) / 100) / 10 : null;
