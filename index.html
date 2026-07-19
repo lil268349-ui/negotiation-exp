@@ -265,7 +265,7 @@
             <div style="font-size:12px;font-weight:600;color:var(--text-hint);margin-bottom:4px;">奖励规则</div>
             <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">
               完成全部流程获得基础奖励 <strong>3 元</strong>。<br>
-              最终成交价每高于 ¥700 一百元，额外获得 <strong>2 元</strong>（上限 6 元）。<br>
+              最终成交价每高于 ¥700 五十元，额外获得 <strong>1 元</strong>（上限 6 元）。<br>
               <span style="color:var(--danger);">若谈判未能达成交易（无论哪方结束），仅获得基础奖励，无绩效奖励。</span>
             </div>
           </div>
@@ -1010,7 +1010,7 @@ function finalize() {
 
   const price = S.finalPrice;
   const dealt = price !== null && price !== undefined;
-  const bonus = dealt ? Math.min(Math.floor((price - 700) / 100) * 2, 6) : 0;
+  const bonus = dealt ? Math.min(Math.floor((price - 700) / 50), 6) : 0;
   const total = 3 + bonus;
   document.getElementById('end-price').textContent = dealt ? '¥' + price : '未成交';
   document.getElementById('end-reward').textContent = dealt
