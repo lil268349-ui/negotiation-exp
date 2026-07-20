@@ -252,7 +252,7 @@
           </p>
           <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:1rem;font-size:13px;color:var(--text-muted);line-height:1.7;">
             <div style="font-size:12px;font-weight:600;color:var(--text-hint);margin-bottom:4px;">谈判规则</div>
-            谈判由<strong>买家先出价</strong>，之后双方<strong>轮流报价</strong>。每轮中，双方都可以选择：向对方还价、接受对方当前报价、或结束谈判。
+            谈判由<strong>买家先出价</strong>，之后双方<strong>轮流报价</strong>。每轮中，双方都可以选择：向对方还价、接受对方当前报价、或放弃交易。
           </div>
           <div class="info-row">
             <div class="info-badge"><span class="label">商品挂牌价</span><span class="value">¥1,000</span></div>
@@ -262,11 +262,20 @@
             底价仅您自己知道。低于 <strong>¥700</strong> 您可以拒绝出售，请尽力争取更高的成交价。
           </p>
           <div style="background:var(--accent-light);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:0.25rem;">
-            <div style="font-size:12px;font-weight:600;color:var(--text-hint);margin-bottom:4px;">奖励规则</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">
-              完成全部流程获得基础奖励 <strong>3 元</strong>。<br>
-              最终成交价每高于 ¥700 五十元，额外获得 <strong>1 元</strong>（上限 6 元）。<br>
-              <span style="color:var(--danger);">若谈判未能达成交易，仅获得基础奖励，无绩效奖励。</span>
+            <div style="font-size:12px;font-weight:600;color:var(--text-hint);margin-bottom:8px;">奖励规则</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:8px;">
+              您的奖励由两部分组成，最高可获得 <strong style="color:var(--text);">9 元</strong>：
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+              <div style="background:var(--bg);border-radius:6px;padding:10px 12px;font-size:13px;color:var(--text-muted);line-height:1.6;">
+                <strong style="color:var(--text);">① 基础奖励 3 元</strong><br>完成全部实验流程即可获得。
+              </div>
+              <div style="background:var(--bg);border-radius:6px;padding:10px 12px;font-size:13px;color:var(--text-muted);line-height:1.6;">
+                <strong style="color:var(--text);">② 绩效奖励（最高 6 元）</strong><br>取决于您的最终成交价。成交价越高，绩效奖励越多。<br><span style="font-size:12px;color:var(--text-hint);">成交价每高于 ¥700 五十元，绩效奖励增加 1 元</span>
+              </div>
+            </div>
+            <div style="background:#fff5f5;border:1px solid #fca5a5;border-radius:6px;padding:9px 12px;font-size:12px;color:#991b1b;line-height:1.6;">
+              ⚠ 若任意一方放弃交易，您将失去全部绩效奖励，仅获得基础奖励 3 元。
             </div>
           </div>
         </div>
@@ -680,8 +689,8 @@ function sendSellerMsg() {
         hideTyping();
         addMsg('buyer', '好的，成交！');
         setTimeout(() => showAcceptance(val), 800);
-      }, 1800 + Math.random()*1200);
-    }, 600);
+      }, 2500 + Math.random()*1500);
+    }, 3000 + Math.random()*1500);
   }
 }
 
