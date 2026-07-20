@@ -532,7 +532,7 @@ function sellerAccept() {
   else if (S.phase === 5) { S.r3 = acceptedPrice; S.timestamps.r3 = Date.now(); }
   addMsg('seller', `好的，就按您说的 ${acceptedPrice} 元，成交！`);
   S.phase = 6;
-  setTimeout(() => showAcceptance(acceptedPrice), 1000);
+  setTimeout(() => showAcceptance(acceptedPrice), 2000);
 }
 
 function sellerEnd() {
@@ -597,7 +597,7 @@ function sendSellerMsg() {
         setTimeout(() => {
           hideTyping();
           addMsg('buyer', '好的，成交！');
-          setTimeout(() => showAcceptance(val), 800);
+          setTimeout(() => showAcceptance(val), 2000);
         }, 2500 + Math.random()*1500);
       }, 2500 + Math.random()*1500);
       return;
@@ -628,7 +628,7 @@ function sendSellerMsg() {
         setTimeout(() => {
           hideTyping();
           addMsg('buyer', '好的，成交！');
-          setTimeout(() => showAcceptance(val), 800);
+          setTimeout(() => showAcceptance(val), 2000);
         }, 2500 + Math.random()*1500);
       }, 2500 + Math.random()*1500);
       return;
@@ -688,7 +688,7 @@ function sendSellerMsg() {
       setTimeout(() => {
         hideTyping();
         addMsg('buyer', '好的，成交！');
-        setTimeout(() => showAcceptance(val), 800);
+        setTimeout(() => showAcceptance(val), 2000);
       }, 2500 + Math.random()*1500);
     }, 3000 + Math.random()*1500);
   }
